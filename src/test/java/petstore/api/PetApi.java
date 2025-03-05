@@ -9,51 +9,49 @@ import static io.restassured.RestAssured.given;
 
 public class PetApi {
 
-    public static final String BASEURI = "https://petstore.swagger.io/v2";
-    public static final String ENDPOINT_PET = "/pet";
     private static final Gson gson = new Gson();
 
-    public Response addPet(Pet pet) {
+    public Response addPet(Pet pet, String url, String endpoint) {
         String petJson = gson.toJson(pet);
         return given()
-                .baseUri(BASEURI)
+                .baseUri(url)
                 .contentType(ContentType.JSON)
                 .body(petJson)
                 .when()
-                .post(ENDPOINT_PET);
+                .post(endpoint);
     }
 
-    public Response updatePet(Pet pet) {
+    public Response updatePet(Pet pet, String url, String endpoint) {
         String petJson = gson.toJson(pet);
         return given()
-                .baseUri(BASEURI)
+                .baseUri(url)
                 .contentType(ContentType.JSON)
                 .body(petJson)
                 .when()
-                .put(ENDPOINT_PET);
+                .put(endpoint);
     }
 
-    public Response getPetByStatus(String value) {
+    public Response getPetByStatus(String value, String url, String endpoint) {
         return given()
-                .baseUri(BASEURI)
+                .baseUri(url)
                 .queryParam("status", value)
                 .when()
-                .get(ENDPOINT_PET + "/findByStatus");
+                .get(endpoint);
     }
 
-    public Response getPetById(String value) {
+    public Response getPetById(String value, String url, String endpoint) {
         return given()
-                .baseUri(BASEURI)
+                .baseUri(url)
                 .pathParam("petId", value)
                 .when()
-                .get(ENDPOINT_PET + "/{petId}");
+                .get(endpoint);
     }
 
-    public Response deletePetById(String value) {
+    public Response deletePetById(String value, String url, String endpoint) {
         return given()
-                .baseUri(BASEURI)
+                .baseUri(url)
                 .pathParam("petId", value)
                 .when()
-                .delete(ENDPOINT_PET + "/{petId}");
+                .delete(endpoint);
     }
 }

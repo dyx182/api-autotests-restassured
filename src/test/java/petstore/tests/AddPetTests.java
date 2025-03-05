@@ -10,6 +10,8 @@ import petstore.models.Tags;
 import java.util.Arrays;
 import java.util.List;
 
+import static petstore.api.ApiConstants.*;
+
 
 public class AddPetTests {
 
@@ -21,7 +23,7 @@ public class AddPetTests {
         List<String> photoUrls = Arrays.asList("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVP9Djxpuw_qRotEFSzIOMv8k6S9VmO2Hyfw&s");
 
         Pet pet = new Pet("557", category, "Murzik", photoUrls, tags, "available");
-        Response response = new PetApi().addPet(pet);
+        Response response = new PetApi().addPet(pet, BASE_URL, ENDPOINT_PET);
 
         response.then()
                 .statusCode(200)
@@ -37,10 +39,26 @@ public class AddPetTests {
         List<String> photoUrls = Arrays.asList("URL");
 
         Pet pet = new Pet("558", category, "Барсик", photoUrls, tags, "Sold");
-        Response response = new PetApi().addPet(pet);
+        Response response = new PetApi().addPet(pet, BASE_URL, ENDPOINT_PET);
 
         response.then()
                 .statusCode(200)
+                .log()
+                .all();
+    }
+
+    @Test
+    public void addPetHTTPTest() {
+        Category category = new Category("1", "Категория");
+        Tags tag = new Tags("1","Тег");
+        List<Tags> tags = Arrays.asList(tag);
+        List<String> photoUrls = Arrays.asList("URL");
+
+        Pet pet = new Pet("558", category, "Барсик", photoUrls, tags, "Sold");
+        Response response = new PetApi().addPet(pet, BASE_URL_80, ENDPOINT_PET);
+
+        response.then()
+                .statusCode(301)
                 .log()
                 .all();
     }
@@ -57,7 +75,7 @@ public class AddPetTests {
         );
 
         Pet pet = new Pet("557", category, "Murzik", photoUrls, tags, "available");
-        Response response = new PetApi().addPet(pet);
+        Response response = new PetApi().addPet(pet, BASE_URL, ENDPOINT_PET);
 
         response.then()
                 .statusCode(200)
@@ -73,7 +91,7 @@ public class AddPetTests {
         List<String> photoUrls = Arrays.asList("URL");
 
         Pet pet = new Pet("one", category, "Murzik", photoUrls, tags, "available");
-        Response response = new PetApi().addPet(pet);
+        Response response = new PetApi().addPet(pet, BASE_URL, ENDPOINT_PET);
 
         response.then()
                 .statusCode(500)
@@ -89,7 +107,7 @@ public class AddPetTests {
         List<String> photoUrls = Arrays.asList("URL");
 
         Pet pet = new Pet("1", category, "Барсик", photoUrls, tags, "available");
-        Response response = new PetApi().addPet(pet);
+        Response response = new PetApi().addPet(pet, BASE_URL, ENDPOINT_PET);
 
         response.then()
                 .statusCode(500)
@@ -105,7 +123,7 @@ public class AddPetTests {
         List<String> photoUrls = Arrays.asList("URL");
 
         Pet pet = new Pet("1", category, "Барсик", photoUrls, tags, "Three");
-        Response response = new PetApi().addPet(pet);
+        Response response = new PetApi().addPet(pet, BASE_URL, ENDPOINT_PET);
 
         response.then()
                 .statusCode(500)
