@@ -1,7 +1,10 @@
 package petstore.models;
 
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
 public class Pet {
     private String id;
     private Category category;
@@ -10,12 +13,5 @@ public class Pet {
     private List<Tags> tags;
     private String status;
 
-    public Pet(String id, Category category, String name, List<String> photoUrls, List<Tags> tags, String status) {
-        this.id = id;
-        this.status = status;
-        this.tags = tags;
-        this.name = name;
-        this.category = category;
-        this.photoUrls = photoUrls;
-    }
+
 }
